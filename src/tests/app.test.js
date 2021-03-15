@@ -9,8 +9,8 @@ describe("Teste 1 - Criar nova Pessoa", () =>{
             "name" : "lucas honorioo silva",
 	        "email" : "lucas@hotmail.com",
 	        "cpf" : "111.222.333-44",
-	        "imc" : "19.60",
-	        "classificacao" : "normal"
+	        "peso" : "65",
+	        "altura" : "1.73"
         })
         .expect(200);
          expect(isUuid(response.body.newPerson.id)).toBe(true);
@@ -19,8 +19,8 @@ describe("Teste 1 - Criar nova Pessoa", () =>{
                 "name" : "lucas honorioo silva",
                 "email" : "lucas@hotmail.com",
                 "cpf" : "111.222.333-44",
-                "imc" : "19.60",
-                "classificacao" : "normal"
+                "peso" : "65",
+                "altura" : "1.73"
             }
        });
    });
@@ -39,8 +39,8 @@ describe("Teste 3 - atualizacao de um estudande", () => {
              "name" : "lucas honorioo silva",
              "email" : "lucas@hotmail.com",
              "cpf" : "111.222.333-44",
-             "imc" : "19.60",
-	         "classificacao" : "normal"
+             "peso" : "65",
+             "altura" : "1.73"
          })
          .expect(200);
           expect(isUuid(response.body.newPerson.id)).toBe(true);
@@ -49,8 +49,8 @@ describe("Teste 3 - atualizacao de um estudande", () => {
                  "name" : "lucas honorioo silva",
                  "email" : "lucas@hotmail.com",
                  "cpf" : "111.222.333-44",
-                 "imc" : "19.60",
-	             "classificacao" : "normal"
+                 "peso" : "65",
+                 "altura" : "1.73"
              }
         });
    
@@ -62,16 +62,16 @@ describe("Teste 3 - atualizacao de um estudande", () => {
             "name" : "luan honorioo silva",
             "email" : "luan@hotmail.com",
             "cpf" : "111.222.333-44",
-            "imc" : "19.60",
-	        "classificacao" : "normal"
+            "peso" : "65",
+	        "altura" : "1.73"
         })
         .expect(200);
         expect(responseUpd.body).toMatchObject({
             "name" : "luan honorioo silva",
             "email" : "luan@hotmail.com",
             "cpf" : "111.222.333-44",
-            "imc" : "19.60",
-	        "classificacao" : "normal"
+            "peso" : "65",
+	        "altura" : "1.73"
         });
 
 

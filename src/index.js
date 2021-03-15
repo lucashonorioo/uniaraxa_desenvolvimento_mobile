@@ -59,7 +59,7 @@ app.put('/:id',(request, response) => {
   console.log(request.body);
   console.log(personResearch);
   console.log(repositories);
-
+  
 
   if(personResearch < 0 ){
     return response.status(404).json({"error" : "Person not found"});
