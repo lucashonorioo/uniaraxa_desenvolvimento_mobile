@@ -2,9 +2,11 @@ const { request, response } = require('express');
 const express = require('express');
 const {uuid} = require('uuidv4');
 const {validate : isUuid} = require("uuid");
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const repositories = [];
 
@@ -17,6 +19,7 @@ function calcularImc(peso, altura){
 }
 
 function classificaIMC(vlrIMC){
+
   if(vlrIMC < 18.5)
     return "Peso baixo";
 
@@ -29,7 +32,7 @@ function classificaIMC(vlrIMC){
   if(vlrIMC >= 30.0 && vlrIMC < 34.9)
   return "Obesidade Grau 1";
 
-  if(vlrIMC >= 35.0 && vlrIMC < 39.99)
+  if(vlrIMC >= 35.0 && vlrIMC < 39.9)
   return"Obesidade Severa Grau 2";
 
   if(vlrIMC >= 40.0)
@@ -51,7 +54,7 @@ app.post('/',(request, response) => {
 
 app.put('/:id',(request, response) => {
 
-  const {id} =  request.params;
+  const {id} = request.params;
   const { name, email, cpf, peso, altura }  = request.body;
   const personResearch = repositories.findIndex(personindex => personindex.newPerson.id == id );
 
