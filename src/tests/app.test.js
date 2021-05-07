@@ -3,6 +3,9 @@ const request = require('supertest');
 const {uuid, isUuid } = require("uuidv4");
 const { response } = require('express');
 
+
+/*
+
 describe("Teste 1 - Criar nova Pessoa", () =>{
     it("POST - teste metodo POST pessoa", async () => {
        const response = await request(app).post("/").send({
@@ -79,3 +82,6 @@ afterAll(done => {
     app.close();
     done();
 });
+
+
+*/
