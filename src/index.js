@@ -1,8 +1,10 @@
-const { request, response } = require('express');
+const { request } = require('express');
 const express = require('express');
 const {uuid} = require('uuidv4');
 const {validate : isUuid} = require("uuid");
 const cors = require('cors');
+const mongoose = require('mongoose');
+const AlunoRepositorio = require('./models/Aluno');
 
 const app = express();
 app.use(express.json());
@@ -10,52 +12,33 @@ app.use(cors());
 
 const repositories = [];
 
-app.get('/', (request , response) => {
-    return response.send(repositories);
+mongoose.connect('mongodb+srv://lucashonorioo:5279874lu@cluster0.bkvsy.mongodb.net/alunoAula?retryWrites=true&w=majority',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
-function calcularImc(peso, altura){
-  return peso/(altura*altura);
-}
+app.get('/', async (request , response) => {
+    const retornoAluno = await AlunoRepositorio.find();
+    return response.json(retornoAluno);
+});
 
-function classificaIMC(vlrIMC){
 
-  if(vlrIMC < 18.5)
-    return "Peso baixo";
+app.post('/', async (request, response) => {
 
-  if(vlrIMC >= 18.5 && vlrIMC < 24.9)
-  return "Peso normal";
+  const { name, cpf, email }  = request.body;
 
-  if(vlrIMC >= 25.0 && vlrIMC < 29.9)
-  return "Sobrepeso";
+  const retornoAluno = await AlunoRepositorio.create({
+    id:uuid(), name, cpf, email
+  });
 
-  if(vlrIMC >= 30.0 && vlrIMC < 34.9)
-  return "Obesidade Grau 1";
-
-  if(vlrIMC >= 35.0 && vlrIMC < 39.9)
-  return"Obesidade Severa Grau 2";
-
-  if(vlrIMC >= 40.0)
-  return "Obesidade Morbida Grau 3";
-}
-
-app.post('/',(request, response) => {
-
-  const { name, email, cpf, peso, altura }  = request.body;
-
-  let imc = calcularImc(peso, altura);
-  let classificicacao = classificaIMC(imc);
-
-  const newPerson = {id:uuid(), name, email, cpf, peso, altura, imc ,  classificicacao};
-  repositories.push({newPerson});
-  return response.json({ newPerson });
+  return response.json({ retornoAluno });
 
 });
 
 app.put('/:id',(request, response) => {
 
   const {id} = request.params;
-  const { name, email, cpf, peso, altura }  = request.body;
+  const { name, cpf, email }  = request.body;
   const personResearch = repositories.findIndex(personindex => personindex.newPerson.id == id );
 
   console.log(id);
@@ -67,7 +50,7 @@ app.put('/:id',(request, response) => {
   if(personResearch < 0 ){
     return response.status(404).json({"error" : "Person not found"});
   }
-  const newPerson = {id, name, email, cpf, peso, altura};
+  const newPerson = {id, name, cpf, email};
   repositories[personResearch] = newPerson;
   return response.json(newPerson);
 

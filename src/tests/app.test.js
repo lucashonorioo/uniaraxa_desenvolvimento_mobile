@@ -7,20 +7,18 @@ describe("Teste 1 - Criar nova Pessoa", () =>{
     it("POST - teste metodo POST pessoa", async () => {
        const response = await request(app).post("/").send({
             "name" : "lucas honorioo silva",
-	        "email" : "lucas@hotmail.com",
-	        "cpf" : "111.222.333-44",
-	        "peso" : "65",
-	        "altura" : "1.73"
+            "cpf" : "111.222.333-44",
+	        "email" : "lucas@hotmail.com"
+	        
         })
         .expect(200);
          expect(isUuid(response.body.newPerson.id)).toBe(true);
          expect(response.body).toMatchObject({
              "newPerson":{
                 "name" : "lucas honorioo silva",
-                "email" : "lucas@hotmail.com",
                 "cpf" : "111.222.333-44",
-                "peso" : "65",
-                "altura" : "1.73"
+                "email" : "lucas@hotmail.com"
+               
             }
        });
    });
@@ -37,20 +35,18 @@ describe("Teste 3 - atualizacao de um estudande", () => {
     it("POST e PUT - teste metodo atualizar pessoa", async () => {
         const response = await request(app).post("/").send({
              "name" : "lucas honorioo silva",
-             "email" : "lucas@hotmail.com",
              "cpf" : "111.222.333-44",
-             "peso" : "65",
-             "altura" : "1.73"
+             "email" : "lucas@hotmail.com"
+            
          })
          .expect(200);
           expect(isUuid(response.body.newPerson.id)).toBe(true);
           expect(response.body).toMatchObject({
               "newPerson":{
                  "name" : "lucas honorioo silva",
-                 "email" : "lucas@hotmail.com",
                  "cpf" : "111.222.333-44",
-                 "peso" : "65",
-                 "altura" : "1.73"
+	             "email" : "lucas@hotmail.com"
+                
              }
         });
    
@@ -60,18 +56,16 @@ describe("Teste 3 - atualizacao de um estudande", () => {
         .put(`/${response.body.newPerson.id}`)
         .send({
             "name" : "luan honorioo silva",
-            "email" : "luan@hotmail.com",
             "cpf" : "111.222.333-44",
-            "peso" : "65",
-	        "altura" : "1.73"
+	        "email" : "lucas@hotmail.com"
+          
         })
         .expect(200);
         expect(responseUpd.body).toMatchObject({
             "name" : "luan honorioo silva",
-            "email" : "luan@hotmail.com",
             "cpf" : "111.222.333-44",
-            "peso" : "65",
-	        "altura" : "1.73"
+	        "email" : "lucas@hotmail.com"
+          
         });
 
 
